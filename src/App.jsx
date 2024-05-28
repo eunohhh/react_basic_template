@@ -1,7 +1,15 @@
 // import { useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./App.css";
 import Counter from "./components/Counter";
 import TodoContainer from "./components/TodoContainer";
+import {
+    addStudent,
+    decrement,
+    delStudent,
+    increment,
+} from "./redux/slice/counter.slice";
 
 // 1 vite 설치
 // 2 initial 값들 삭제 app, css 등
@@ -13,8 +21,44 @@ import TodoContainer from "./components/TodoContainer";
 // 4 Props 전달 연습 (addToDo, delToDo, toggleToDo)
 
 function App() {
+    const dispatch = useDispatch();
+    const counter = useSelector((state) => state.counter.count);
+    const students = useSelector((state) => state.counter.students);
+
+    const handleIncrementClick = () => {
+        // 우체부 소환
+        // 액션크리에이터 줄여서 액션
+        // 우편물 => 페이로드
+        dispatch(increment(6));
+    };
+
+    const handleDecrementClick = () => {
+        dispatch(decrement(5));
+    };
+
+    const handleAddStudent = () => {
+        dispatch(addStudent("choi"));
+    };
+
+    const handleDelStudent = () => {
+        dispatch(delStudent("oh"));
+    };
+
+    useEffect(() => {
+        console.log(counter);
+    }, [counter]);
+
+    useEffect(() => {
+        console.log(students);
+    }, [students]);
+
     return (
         <>
+            <button onClick={handleIncrementClick}>증가</button>
+            <button onClick={handleDecrementClick}>감소</button>
+            <button onClick={handleAddStudent}>학생추가</button>
+            <button onClick={handleDelStudent}>학생삭제</button>
+
             <Counter />
             <TodoContainer />
         </>

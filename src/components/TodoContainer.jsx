@@ -43,7 +43,7 @@ function TodoContainer() {
         setToDos(immutableCopy);
     };
 
-    console.log(toDos);
+    // console.log(toDos);
 
     // 투두 추가 함수
     const addToDo = (newTodo) => {
